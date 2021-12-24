@@ -1,0 +1,57 @@
+﻿<Page x:Class="WpfApp1.Pages.TypeOfFurniture"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TypeOfFurniture"  Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0" x:Name="SplitterColumn"/>
+            <ColumnDefinition Width="0" x:Name="ChangeColumn" MaxWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="LightSkyBlue" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Label Content="Типы мебели"  Grid.RowSpan="3"  FontSize="26" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="LightSkyBlue">
+            <Button x:Name="Addtype" Content="Добавить" Width="75" Margin="5,5" Click="addtype_click"/>
+            <Button x:Name="Copytype" Content="Копировать" Width="75" Margin="5,5" Click="addtype_click"/>
+            <Button x:Name="Edittype" Content="Изменить" Width="75" Margin="5,5" Click="addtype_click"/>
+            <Button x:Name="Deletetype" Content="Удалить" Width="75" Margin="5,5" Click="deletetype_click"/>
+            <ComboBox Name="TypeObjectsFilterComboBox" Width="150" Margin="5,5" SelectionChanged="TypeObjectsFilterComboBox_SelectionChanged"/>
+            <TextBox x:Name="TypeObjectsFilterTextBox" Width="200" Margin="5,5" TextChanged="TypeObjectsFilterTextBox_TextChanged" />
+        </StackPanel>
+        <DataGrid x:Name="DataGridType" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns >
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                        Тип мебели
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns >
+        </DataGrid>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" Width="5"/>
+        <Label Content="Тип мебели" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" FontStyle="Italic" Margin="0 -8 0 0"/>
+        <Button Content="X" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseEdChangeClick" Width="20" Height="20" />
+        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="2">
+            
+            <Label Content = "Тип мебели" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridType, Path=SelectedItem.name}" x:Name="nameTextBox"/>
+            <Button Content="Принять" Click="CommitButtonType" Margin="0 10 0 10"/>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,0 +1,147 @@
+﻿<Page x:Class="WpfApp1.Pages.Employee"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Employee" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0" x:Name="SplitterColumn"/>
+            <ColumnDefinition Width="0" x:Name="ChangeColumn" MaxWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="LightSkyBlue" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Label Content="Сотрудники"  Grid.RowSpan="3"  FontSize="26" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="LightSkyBlue">
+            <Button x:Name="AddEmp" Content="Добавить" Width="75" Margin="5,5" Click="AddEmp_click"/>
+            <Button x:Name="CopyEmp" Content="Копировать" Width="75" Margin="5,5" Click="AddEmp_click"/>
+            <Button x:Name="EditEmp" Content="Изменить" Width="75" Margin="5,5" Click="AddEmp_click"/>
+            <Button x:Name="DeleteEmp" Content="Удалить" Width="75" Margin="5,5" Click="DeleteEmp_click"/>
+            <ComboBox Name="TypeObjectsFilterComboBox" Width="150" Margin="5,5" SelectionChanged="TypeObjectsFilterComboBox_SelectionChanged"/>
+            <TextBox x:Name="TypeObjectsFilterTextBox" Width="200" Margin="5,5" TextChanged="TypeObjectsFilterTextBox_TextChanged" />
+        </StackPanel>
+        <DataGrid x:Name="DataGridEmp" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns >
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Фамилия
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding surname}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Отчество
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding patronymic}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Имя
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Номер телефона
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding telephone}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Дата принятия заказа" Binding="{Binding Path=date_of_employment,StringFormat=\{0:dd.MM.yyyy\}}"/>
+                <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn.Header>
+                        Серия паспорта
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding passport_series}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+                <DataGridTemplateColumn Width="60">
+                    <DataGridTemplateColumn.Header>
+                        Номер паспорта
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding passport_number}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Отдел
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding department.name_department}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                       Должность  
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding positions.name_position}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" Width="5"/>
+        <Label Content="Сотрудники" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" FontStyle="Italic" Margin="0 -8 0 0"/>
+        <Button Content="X" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseEdChangeClick" Width="20" Height="20" />
+        <ScrollViewer Grid.Column="2" Grid.Row="2">
+            <StackPanel Orientation="Vertical" >
+            
+            <Label Content = "Фамилия" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.surname}" x:Name="SurnameTextBox"/>
+            <Label Content = "Имя" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.name}" x:Name="nameTextBox"/>
+            <Label Content="Отчество" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.patronymic}" x:Name="PatronymicTextBox"/>
+            <Label Content="Дата приема заказа" Foreground="Black"/>
+            <DatePicker Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.date_of_employment}" x:Name="DatePick"/>
+                <Label Content = "Телефон" Foreground="Black"/>
+                <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.telephone}" x:Name="TelephoneTextBox"/>
+            <Label Content = "Серия паспорта" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.passport_series}" x:Name="seriesTextBox"/>
+            <Label Content = "Номер паспорта" Foreground="Black"/>
+            <TextBox Text="{Binding ElementName=DataGridEmp, Path=SelectedItem.passport_number}" x:Name="numberTextBox"/>
+            <Label Content = "Отдел" Foreground="Black"/>
+            <ComboBox x:Name="ComboBoxDep" DisplayMemberPath="name_department" Text="{Binding SelectedItem.Department.name_department, ElementName=DataGridEmp}" />
+            <Label Content = "Должность" Foreground="Black"/>
+            <ComboBox x:Name="ComboBoxPos" DisplayMemberPath="name_position"  Text="{Binding SelectedItem.Position.name_position, ElementName=DataGridEmp}"  />
+            <Button Content="Принять" Click="CommitButtonEmp" Margin="0 10 0 10"/>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

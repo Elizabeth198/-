@@ -1,0 +1,66 @@
+﻿<Window x:Class="WpfApp1.RegistrWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="Вход" Height="200" Width="500" Background="LightSkyBlue">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="56*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" HorizontalAlignment="left" Margin="80 0 0 0">
+            <Label Content="Вход" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        </DockPanel>
+        <DockPanel Grid.Row="1">
+            <StackPanel DockPanel.Dock="Left" Background="LightSkyBlue">
+                <Image DockPanel.Dock="Left" Width="60" Height="60"
+                       Margin="10,10" Source="Images/icon.png"/>
+            </StackPanel>
+
+           
+            <StackPanel Margin="0,3,20,0" Grid.Row="1">
+                <DockPanel >
+                    <Image Source="Images/login.png" Width="20" Height="20"/>
+                    <Label Content="Логин" Width="90" />
+                    <TextBox x:Name="LoginTextBox" TabIndex="0" Text="admin"/>
+                </DockPanel>
+
+                <DockPanel Margin="0,5,0,0">
+                    <Image Source="Images/password.png" Width="20" Height="20"/>
+                    <Label Content="Пароль" Width="90"/>
+                    <Button x:Name="PasswordButton" DockPanel.Dock="Right" 
+                        Content="Показать" Width="75" Margin="8,2,0,2" TabIndex="3"
+                        Click="PasswordButton_Click"/>
+                    <TextBox x:Name="PasswordTextBox" Width="0" Visibility="Hidden"
+                             TabIndex="1"/>
+                    <PasswordBox x:Name="PasswordPasswordBox" TabIndex="2" Password="admin"/>
+                </DockPanel>
+
+                <DockPanel x:Name="CaptchaDockPanel" Margin="0,5,0,0">
+                </DockPanel >
+
+                <DockPanel Margin="0,5,0,0">
+                </DockPanel>
+
+                <DockPanel Height="25" Margin="0,14,0,0" LastChildFill="False" >
+                    <Button x:Name="OkButton" Content="ОК" Width="75" 
+                            DockPanel.Dock="Right" TabIndex="7" IsDefault="True"
+                            Click="OkButton_Click"/>
+                    <Button x:Name="RegistrButton" Content="Регистрация" Width="75"
+                        Margin="0,0,10,0" TabIndex="8"
+                        IsCancel="True" Click="RegistrationButton_Click"/>
+                    <Button x:Name="CancelButton" Content="Отмена" Width="75"
+                        DockPanel.Dock="Right" Margin="0,0,10,0" TabIndex="8"
+                        IsCancel="True" Click="CancelButton_Click"/>
+                </DockPanel>
+
+
+            </StackPanel>
+        </DockPanel>
+
+    </Grid>
+</Window>

@@ -1,0 +1,120 @@
+﻿<Page x:Class="WpfApp1.Pages.Product"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Product" Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0" x:Name="SplitterColumn"/>
+            <ColumnDefinition Width="0" x:Name="ChangeColumn" MaxWidth="250"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="LightSkyBlue" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+        <Label Content="Мебель"  Grid.RowSpan="3"  FontSize="26" FontWeight="ExtraBold" HorizontalAlignment="Left"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Background="LightSkyBlue">
+            <Button x:Name="AddBook" Content="Добавить" Width="75" Margin="5,5" Click="AddPro_click"/>
+            <Button x:Name="CopyBook" Content="Копировать" Width="75" Margin="5,5" Click="AddPro_click"/>
+            <Button x:Name="EditBook" Content="Изменить" Width="75" Margin="5,5" Click="AddPro_click"/>
+            <Button x:Name="DeleteBook" Content="Удалить" Width="75" Margin="5,5" Click="DeletePro_click"/>
+            <ComboBox Name="TypeObjectsFilterComboBox" Width="150" Margin="5,5" SelectionChanged="TypeObjectsFilterComboBox_SelectionChanged"/>
+            <TextBox x:Name="TypeObjectsFilterTextBox" Width="200" Margin="5,5" TextChanged="TypeObjectsFilterTextBox_TextChanged" />
+        </StackPanel>
+        <DataGrid x:Name="DataGridProduct" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns >
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Тип мебели
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding types_of_furniture.name}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Количество
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding quantity_product}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Поставщик
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding suppliers.surname}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        Цена
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding price}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn>
+                <DataGridTemplateColumn.Header>
+                    Цвет
+                </DataGridTemplateColumn.Header>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding color}"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.Header>
+                        Название мебели
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding name_product}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <GridSplitter Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" HorizontalAlignment="Center" Width="5"/>
+        <Label Content="Мебель" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left" FontSize="16" FontStyle="Italic" Margin="0 -8 0 0"/>
+        <Button Content="X" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Click="CloseEdChangeClick" Width="20" Height="20" />
+        <ScrollViewer Grid.Column="2" Grid.Row="2">
+            <StackPanel Orientation="Vertical" >
+               
+                <Label Content = "Тип мебели" Foreground="Black"/>
+                <ComboBox x:Name="ComboBoxType" DisplayMemberPath="name"  Text="{Binding SelectedItem.types_of_furniture.id_type_of_furniture, ElementName=DataGridProduct }"  />
+                <Label Content = "Цвет" Foreground="Black"/>
+                <TextBox Text="{Binding ElementName=DataGridProduct, Path=SelectedItem.color}" x:Name="ColorTextBox"/>
+                <Label Content = "Количество" Foreground="Black"/>
+                <TextBox Text="{Binding ElementName=DataGridProduct, Path=SelectedItem.quantity_product}" x:Name="QuantTextBox"/>
+                <Label Content = "Поставщик" Foreground="Black"/>
+                <ComboBox x:Name="ComboBoxSupp" DisplayMemberPath="name"  Text="{Binding SelectedItem.suppliers.id_suppliers, ElementName=DataGridProduct }"  />
+                <Label Content = "Цена" Foreground="Black"/>
+                <TextBox Text="{Binding ElementName=DataGridProduct, Path=SelectedItem.price}" x:Name="PriceTextBox"/>
+               
+                <Label Content = "Название мебели" Foreground="Black"/>
+                <TextBox Text="{Binding ElementName=DataGridProduct, Path=SelectedItem.name_product}" x:Name="NameTextBox"/>
+                <Button Content="Принять" Click="CommitButtonPro" Margin="0 10 0 10"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
